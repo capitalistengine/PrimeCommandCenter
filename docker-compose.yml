@@ -1,0 +1,33 @@
+version: "3.9"
+services:
+  redis:
+    image: redis:7
+    container_name: prime-redis
+    restart: always
+    ports:
+      - "6379:6379"
+
+  ollama:
+    image: ollama/ollama
+    container_name: prime-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama:/root/.ollama
+    restart: always
+
+  agent:
+    build: ./agents
+    container_name: prime-agent
+    depends_on:
+      - redis
+      - ollama
+    environment:
+      - REDIS_HOST=redis
+      - OLLAMA_HOST=ollama
+    restart: always
+    volumes:
+      - ./agents:/agents
+
+volumes:
+  ollama:

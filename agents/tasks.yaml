@@ -1,0 +1,8 @@
+- name: WebScraper01
+  goal: Scrape HackerNews for new AI articles every hour
+
+- name: CodeWriter01
+  goal: Build Python scripts for automated trading
+
+- name: Summarizer01
+  goal: Summarize latest arXiv papers in ML
