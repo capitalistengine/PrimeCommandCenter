@@ -6,7 +6,6 @@ with open('/agents/tasks.yaml') as f:
 
 for task in tasks:
     print(f"[+] Spawning agent: {task['name']}")
-    # simulate task loop
     time.sleep(1)
     print(f"    - Goal: {task['goal']}")
     print("    - Agent completed round 1.\n")

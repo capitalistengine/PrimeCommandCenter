@@ -3,9 +3,9 @@ services:
   redis:
     image: redis:7
     container_name: prime-redis
-    restart: always
     ports:
       - "6379:6379"
+    restart: always
 
   ollama:
     image: ollama/ollama
@@ -23,11 +23,11 @@ services:
       - redis
       - ollama
     environment:
-      - REDIS_HOST=redis
-      - OLLAMA_HOST=ollama
-    restart: always
+      REDIS_HOST: redis
+      OLLAMA_HOST: ollama
     volumes:
       - ./agents:/agents
+    restart: always
 
 volumes:
   ollama:

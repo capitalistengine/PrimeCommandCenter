@@ -1,21 +1,24 @@
 #!/bin/bash
 
-echo "[+] PrimeCommandCenter: Initializing System Bootstrap"
+echo "[+] PrimeCommandCenter: System Bootstrap Initializing"
 
-# Add Docker group access
+# Grant docker access to current user (assumes 'prime' user exists)
 usermod -aG docker prime
 
-# Enable Docker on boot
+# Enable + start Docker
 systemctl enable docker
 systemctl start docker
 
-# Pull containers
+# Pull & deploy agent stack
 cd /opt/prime
 docker compose pull
 docker compose up -d
 
-# Optional: Spawn default agents
-echo "[+] Spawning initial agents..."
+# Wait briefly for containers to come online
+sleep 5
+
+# Optional: spawn test agents inside container
+echo "[+] Spawning initial agent batch..."
 docker exec prime-agent python3 /agents/spawn.py --config /agents/tasks.yaml
 
-echo "[+] Bootstrap complete. PCC is operational."
+echo "[+] PrimeCommandCenter is operational."
